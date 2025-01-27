@@ -21,9 +21,15 @@ router.get('/', (req, res) => {
 
 // Obtener producto por ID
 router.get('/:pid', (req, res) => {
-  const products = readProducts();
-  const product = products.find(p => p.id === req.params.pid);
-  product ? res.json(product) : res.status(404).json({ error: 'Producto no encontrado' });
+    const products = readProducts(); // Leer productos desde el archivo
+    const productId = parseInt(req.params.pid); // Convertir el parámetro a número
+    const product = products.find(p => p.id === productId);
+
+    if (!product) {
+        return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    res.json(product);
 });
 
 // Crear nuevo producto
