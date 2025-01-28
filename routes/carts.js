@@ -38,8 +38,9 @@ router.post("/", (req, res) => {
 
 // Ruta GET: Obtener los productos de un carrito específico
 router.get("/:cid", (req, res) => {
+  const { cid } = req.params;
   const carts = readCarts();
-  const cart = carts.find((cart) => cart.id === parseInt(req.params.cid));
+  const cart = carts.find((cart) => cart.id === parseInt(cid));
 
   if (!cart) {
     return res.status(404).json({ error: "Carrito no encontrado" });
@@ -60,7 +61,7 @@ router.post("/:cid/product/:pid", (req, res) => {
   }
 
   const products = JSON.parse(fs.readFileSync(productsFilePath, "utf-8"));
-  const product = products.find((p) => p.id === parseInt(pid));
+  const product = products.find((product) => product.id === parseInt(pid));
 
   if (!product) {
     return res.status(404).json({ error: "Producto no encontrado" });
@@ -79,5 +80,6 @@ router.post("/:cid/product/:pid", (req, res) => {
   saveCarts(carts);
   res.json({ message: "Producto agregado al carrito", cart });
 });
+
 
 module.exports = router;
