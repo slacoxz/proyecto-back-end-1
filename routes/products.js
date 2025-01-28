@@ -1,83 +1,47 @@
-// routes/products.js
-[]
-
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-
+const express = require("express");
+const fs = require("fs");
 const router = express.Router();
-const productsFile = path.join(__dirname, '../data/products.json');
 
-// Helper para leer y escribir productos
-const readProducts = () => JSON.parse(fs.readFileSync(productsFile, 'utf-8'));
-const writeProducts = (products) => fs.writeFileSync(productsFile, JSON.stringify(products, null, 2));
+const productsFilePath = "./data/products.json";
 
-// Listar todos los productos con ?limit
-router.get('/', (req, res) => {
+// Función para leer los productos desde el archivo
+const readProducts = () => {
+  if (!fs.existsSync(productsFilePath)) {
+    fs.writeFileSync(productsFilePath, JSON.stringify([])); // Si no existe, lo crea
+  }
+  const data = fs.readFileSync(productsFilePath, "utf-8");
+  return JSON.parse(data);
+};
+
+// Ruta GET: Obtener todos los productos
+router.get("/", (req, res) => {
   const products = readProducts();
-  const limit = parseInt(req.query.limit);
-  res.json(limit ? products.slice(0, limit) : products);
+  res.json(products);
 });
 
-// Obtener producto por ID
-router.get('/:pid', (req, res) => {
-    const products = readProducts(); // Leer productos desde el archivo
-    const productId = parseInt(req.params.pid); // Convertir el parámetro a número
-    const product = products.find(p => p.id === productId);
+// Ruta GET: Obtener un producto por su ID
+router.get("/:id", (req, res) => {
+  const products = readProducts();
+  const product = products.find((p) => p.id === parseInt(req.params.id));
 
-    if (!product) {
-        return res.status(404).json({ error: "Producto no encontrado" });
-    }
+  if (!product) {
+    return res.status(404).json({ error: "Producto no encontrado" });
+  }
 
-    res.json(product);
+  res.json(product);
 });
 
-// Crear nuevo producto
-router.post('/', (req, res) => {
+// Ruta POST: Agregar un nuevo producto
+router.post("/", (req, res) => {
   const products = readProducts();
   const newProduct = {
-    id: `${Date.now()}`,
+    id: products.length ? products[products.length - 1].id + 1 : 1, // ID autogenerado
     ...req.body,
-    status: req.body.status !== undefined ? req.body.status : true
   };
 
-  if (!newProduct.title || !newProduct.description || !newProduct.code || !newProduct.price || !newProduct.stock || !newProduct.category) {
-    return res.status(400).json({ error: 'Todos los campos son obligatorios, excepto thumbnails' });
-  }
-
   products.push(newProduct);
-  writeProducts(products);
-  res.status(201).json(newProduct);
-});
-
-// Actualizar producto
-router.put('/:pid', (req, res) => {
-  const products = readProducts();
-  const index = products.findIndex(p => p.id === req.params.pid);
-
-  if (index === -1) {
-    return res.status(404).json({ error: 'Producto no encontrado' });
-  }
-
-  const updatedProduct = { ...products[index], ...req.body };
-  delete updatedProduct.id; // No permitir modificar el ID
-  products[index] = updatedProduct;
-  writeProducts(products);
-
-  res.json(updatedProduct);
-});
-
-// Eliminar producto
-router.delete('/:pid', (req, res) => {
-  const products = readProducts();
-  const filteredProducts = products.filter(p => p.id !== req.params.pid);
-
-  if (products.length === filteredProducts.length) {
-    return res.status(404).json({ error: 'Producto no encontrado' });
-  }
-
-  writeProducts(filteredProducts);
-  res.status(204).send();
+  fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2)); // Guardar en archivo
+  res.status(201).json({ message: "Producto creado con éxito", product: newProduct });
 });
 
 module.exports = router;
