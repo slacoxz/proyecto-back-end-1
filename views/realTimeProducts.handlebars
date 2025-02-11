@@ -1,43 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-Time Products</title>
-</head>
-<body>
-  <h1>Lista de Productos en Tiempo Real</h1>
-  <ul id="products-list"></ul>
+<h1>Lista de Productos en Tiempo Real</h1>
+<ul id="product-list">
+  {{#each products}}
+    <li id="product-{{this.id}}">{{this.title}} - ${{this.price}} (Stock: {{this.stock}})</li>
+  {{/each}}
+</ul>
 
-  <form id="product-form">
-    <input type="text" id="product-title" placeholder="Título del Producto" required>
-    <input type="number" id="product-price" placeholder="Precio" required>
-    <button type="submit">Agregar Producto</button>
-  </form>
+<h2>Agregar Producto</h2>
+<form id="add-product-form">
+  <input type="text" id="title" placeholder="Título del producto" required />
+  <input type="number" id="price" placeholder="Precio" required />
+  <input type="number" id="stock" placeholder="Stock" required />
+  <button type="submit">Agregar</button>
+</form>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
+<h2>Eliminar Producto</h2>
+<form id="delete-product-form">
+  <input type="number" id="delete-id" placeholder="ID del producto" required />
+  <button type="submit">Eliminar</button>
+</form>
 
-    // Actualizar la lista de productos
-    socket.on('update-products', (products) => {
-      const list = document.getElementById('products-list');
-      list.innerHTML = '';
-      products.forEach(product => {
-        const item = document.createElement('li');
-        item.textContent = `${product.title} - $${product.price}`;
-        list.appendChild(item);
-      });
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  // Actualizar productos en tiempo real
+  socket.on('updateProducts', (products) => {
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = '';
+
+    products.forEach((product) => {
+      const li = document.createElement('li');
+      li.id = `product-${product.id}`;
+      li.textContent = `${product.title} - $${product.price} (Stock: ${product.stock})`;
+      productList.appendChild(li);
     });
+  });
 
-    // Enviar nuevo producto al servidor
-    const form = document.getElementById('product-form');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const title = document.getElementById('product-title').value;
-      const price = document.getElementById('product-price').value;
-      socket.emit('new-product', { title, price });
-    });
-  </script>
-</body>
-</html>
+  // Agregar producto
+  document.getElementById('add-product-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('title').value;
+    const price = parseFloat(document.getElementById('price').value);
+    const stock = parseInt(document.getElementById('stock').value, 10);
+
+    socket.emit('addProduct', { title, price, stock });
+
+    e.target.reset();
+  });
+
+  // Eliminar producto
+  document.getElementById('delete-product-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = parseInt(document.getElementById('delete-id').value, 10);
+
+    socket.emit('deleteProduct', id);
+
+    e.target.reset();
+  });
+</script>

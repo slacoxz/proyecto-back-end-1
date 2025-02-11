@@ -1,47 +1,42 @@
-const express = require("express");
-const fs = require("fs");
+const express = require('express');
+const fs = require('fs');
 const router = express.Router();
+const { io } = require('../server');
 
-const productsFilePath = "./data/products.json";
+// Ruta para agregar un producto
+router.post('/', (req, res) => {
+  const { title, price } = req.body;
+  const productsPath = './data/products.json';
+  const products = JSON.parse(fs.readFileSync(productsPath, 'utf-8'));
 
-// Función para leer los productos desde el archivo
-const readProducts = () => {
-  if (!fs.existsSync(productsFilePath)) {
-    fs.writeFileSync(productsFilePath, JSON.stringify([])); // Si no existe, lo crea
-  }
-  const data = fs.readFileSync(productsFilePath, "utf-8");
-  return JSON.parse(data);
-};
-
-// Ruta GET: Obtener todos los productos
-router.get("/", (req, res) => {
-  const products = readProducts();
-  res.json(products);
-});
-
-// Ruta GET: Obtener un producto por su ID
-router.get("/:id", (req, res) => {
-  const products = readProducts();
-  const product = products.find((p) => p.id === parseInt(req.params.id));
-
-  if (!product) {
-    return res.status(404).json({ error: "Producto no encontrado" });
-  }
-
-  res.json(product);
-});
-
-// Ruta POST: Agregar un nuevo producto
-router.post("/", (req, res) => {
-  const products = readProducts();
   const newProduct = {
-    id: products.length ? products[products.length - 1].id + 1 : 1, // ID autogenerado
-    ...req.body,
+    id: products.length ? products[products.length - 1].id + 1 : 1,
+    title,
+    price,
   };
 
   products.push(newProduct);
-  fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2)); // Guardar en archivo
-  res.status(201).json({ message: "Producto creado con éxito", product: newProduct });
+  fs.writeFileSync(productsPath, JSON.stringify(products, null, 2));
+
+  // Emitir evento a WebSocket
+  io.emit('update-products', products);
+
+  res.status(201).send(newProduct);
+});
+
+// Ruta para eliminar un producto
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  const productsPath = './data/products.json';
+  const products = JSON.parse(fs.readFileSync(productsPath, 'utf-8'));
+
+  const updatedProducts = products.filter((product) => product.id != id);
+  fs.writeFileSync(productsPath, JSON.stringify(updatedProducts, null, 2));
+
+  // Emitir evento a WebSocket
+  io.emit('update-products', updatedProducts);
+
+  res.status(200).send({ message: `Producto con id ${id} eliminado` });
 });
 
 module.exports = router;

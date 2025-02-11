@@ -1,125 +1,149 @@
 [
-    {
-        "id": 1,
-        "title": "Collar de oro",
-        "description": "Un hermoso collar de oro",
-        "code": "COL123",
-        "price": 1500,
-        "status": true,
-        "stock": 10,
-        "category": "Collares",
-        "thumbnails": ["img1.jpg", "img2.jpg"]
-    },
-    {
-        "id": 2,
-        "title": "Pulsera de plata",
-        "description": "Una hermosa pulsera de plata",
-        "code": "PUL456",
-        "price": 800,
-        "status": true,
-        "stock": 5,
-        "category": "Pulseras",
-        "thumbnails": ["img3.jpg"]
-    },
-    {
-        "id": 3,
-        "title": "Aritos de oro",
-        "description": "Aros pequeños de oro 18k ideales para uso diario",
-        "code": "ARO123",
-        "price": 2500,
-        "status": true,
-        "stock": 15,
-        "category": "Aritos",
-        "thumbnails": ["aritos1.jpg", "aritos2.jpg"]
-      },
-      {
-        "id": 4,
-        "title": "Anillo de diamante",
-        "description": "Anillo de oro blanco con un diamante central",
-        "code": "ANI123",
-        "price": 15000,
-        "status": true,
-        "stock": 5,
-        "category": "Anillos",
-        "thumbnails": ["anillo1.jpg"]
-      },
-      {
-        "id": 5,
-        "title": "Collar de perlas",
-        "description": "Collar clásico de perlas naturales",
-        "code": "COLP123",
-        "price": 5000,
-        "status": true,
-        "stock": 8,
-        "category": "Collares",
-        "thumbnails": ["collar1.jpg", "collar2.jpg"]
-      },
-      {
-        "id": 6,
-        "title": "Reloj de acero",
-        "description": "Reloj unisex de acero inoxidable, resistente al agua",
-        "code": "REL123",
-        "price": 7500,
-        "status": true,
-        "stock": 10,
-        "category": "Relojes",
-        "thumbnails": ["reloj1.jpg"]
-      },
-      {
-        "id": 7,
-        "title": "Pulsera de cuero",
-        "description": "Pulsera ajustable de cuero genuino con detalles metálicos",
-        "code": "PULC123",
-        "price": 800,
-        "status": true,
-        "stock": 25,
-        "category": "Pulseras",
-        "thumbnails": ["pulsera2.jpg"]
-      },
-      {
-        "id": 8,
-        "title": "Collar de amatista",
-        "description": "Collar hecho con piedras de amatista natural",
-        "code": "COLA123",
-        "price": 3000,
-        "status": true,
-        "stock": 12,
-        "category": "Collares",
-        "thumbnails": ["collar3.jpg"]
-      },
-      {
-        "id": 9,
-        "title": "Anillo de plata grabado",
-        "description": "Anillo de plata personalizable con grabado incluido",
-        "code": "ANI124",
-        "price": 2000,
-        "status": true,
-        "stock": 18,
-        "category": "Anillos",
-        "thumbnails": ["anillo2.jpg"]
-      },
-      {
-        "id": 10,
-        "title": "Aritos de plata",
-        "description": "Pequeños aros de plata con piedras de zirconia cúbica",
-        "code": "ARO124",
-        "price": 1500,
-        "status": true,
-        "stock": 30,
-        "category": "Aritos",
-        "thumbnails": ["aritos3.jpg", "aritos4.jpg"]
-      },
-      {
-        "id": 11,
-        "title": "Collar de oro con rubí",
-        "description": "Collar de oro amarillo con un rubí en el centro",
-        "code": "COLR123",
-        "price": 12000,
-        "status": true,
-        "stock": 7,
-        "category": "Collares",
-        "thumbnails": ["collar4.jpg"]
-      }
+  {
+    "id": 1,
+    "title": "Collar de oro",
+    "description": "Un hermoso collar de oro",
+    "code": "COL123",
+    "price": 1500,
+    "status": true,
+    "stock": 10,
+    "category": "Collares",
+    "thumbnails": [
+      "img1.jpg",
+      "img2.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Pulsera de plata",
+    "description": "Una hermosa pulsera de plata",
+    "code": "PUL456",
+    "price": 800,
+    "status": true,
+    "stock": 5,
+    "category": "Pulseras",
+    "thumbnails": [
+      "img3.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Aritos de oro",
+    "description": "Aros pequeños de oro 18k ideales para uso diario",
+    "code": "ARO123",
+    "price": 2500,
+    "status": true,
+    "stock": 15,
+    "category": "Aritos",
+    "thumbnails": [
+      "aritos1.jpg",
+      "aritos2.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Anillo de diamante",
+    "description": "Anillo de oro blanco con un diamante central",
+    "code": "ANI123",
+    "price": 15000,
+    "status": true,
+    "stock": 5,
+    "category": "Anillos",
+    "thumbnails": [
+      "anillo1.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Collar de perlas",
+    "description": "Collar clásico de perlas naturales",
+    "code": "COLP123",
+    "price": 5000,
+    "status": true,
+    "stock": 8,
+    "category": "Collares",
+    "thumbnails": [
+      "collar1.jpg",
+      "collar2.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Reloj de acero",
+    "description": "Reloj unisex de acero inoxidable, resistente al agua",
+    "code": "REL123",
+    "price": 7500,
+    "status": true,
+    "stock": 10,
+    "category": "Relojes",
+    "thumbnails": [
+      "reloj1.jpg"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Pulsera de cuero",
+    "description": "Pulsera ajustable de cuero genuino con detalles metálicos",
+    "code": "PULC123",
+    "price": 800,
+    "status": true,
+    "stock": 25,
+    "category": "Pulseras",
+    "thumbnails": [
+      "pulsera2.jpg"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Collar de amatista",
+    "description": "Collar hecho con piedras de amatista natural",
+    "code": "COLA123",
+    "price": 3000,
+    "status": true,
+    "stock": 12,
+    "category": "Collares",
+    "thumbnails": [
+      "collar3.jpg"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Anillo de plata grabado",
+    "description": "Anillo de plata personalizable con grabado incluido",
+    "code": "ANI124",
+    "price": 2000,
+    "status": true,
+    "stock": 18,
+    "category": "Anillos",
+    "thumbnails": [
+      "anillo2.jpg"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Aritos de plata",
+    "description": "Pequeños aros de plata con piedras de zirconia cúbica",
+    "code": "ARO124",
+    "price": 1500,
+    "status": true,
+    "stock": 30,
+    "category": "Aritos",
+    "thumbnails": [
+      "aritos3.jpg",
+      "aritos4.jpg"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Collar de oro con rubí",
+    "description": "Collar de oro amarillo con un rubí en el centro",
+    "code": "COLR123",
+    "price": 12000,
+    "status": true,
+    "stock": 7,
+    "category": "Collares",
+    "thumbnails": [
+      "collar4.jpg"
+    ]
+  }
 ]
-
-

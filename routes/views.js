@@ -1,18 +1,32 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-
+const express = require("express");
 const router = express.Router();
+const fs = require("fs");
 
-// Ruta para la vista "home"
-router.get('/home', (req, res) => {
-  const products = JSON.parse(fs.readFileSync('./data/products.json', 'utf-8'));
-  res.render('home', { products });
+const productsFilePath = "data/products.json"; // Ajusta la ruta si es diferente
+
+// Ruta HOME
+router.get("/home", (req, res) => {
+    let products = [];
+
+    // Leer productos desde el archivo JSON
+    if (fs.existsSync(productsFilePath)) {
+        const productsData = fs.readFileSync(productsFilePath, "utf-8");
+        products = JSON.parse(productsData);
+    }
+
+    res.render("home", { products }); // Pasar productos a Handlebars
 });
 
-// Ruta para la vista "realTimeProducts"
-router.get('/realtimeproducts', (req, res) => {
-  res.render('realTimeProducts');
+// Ruta Real-Time Products con WebSockets
+router.get("/realtimeproducts", (req, res) => {
+    let products = [];
+
+    if (fs.existsSync(productsFilePath)) {
+        const productsData = fs.readFileSync(productsFilePath, "utf-8");
+        products = JSON.parse(productsData);
+    }
+
+    res.render("realTimeProducts", { products });
 });
 
 module.exports = router;
