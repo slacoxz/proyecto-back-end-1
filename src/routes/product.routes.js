@@ -1,8 +1,10 @@
-import express from 'express';
-import { getProducts } from '../controllers/product.controller.js';
+import { Router } from 'express';
+import { renderProducts, renderProductDetail, getProducts } from '../controllers/product.controller.js';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/', getProducts);
+router.get("/", renderProducts); // Página con lista de productos
+router.get("/json", getProducts); // API JSON de productos
+router.get("/:id", renderProductDetail); // Página de detalle de un producto
 
 export default router;

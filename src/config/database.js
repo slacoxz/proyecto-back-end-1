@@ -9,7 +9,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('🟢 Conectado a MongoDB');
+    console.log('🟢 Conectado a MongoDB Compass');
   } catch (error) {
     console.error('🔴 Error de conexión:', error);
     process.exit(1);

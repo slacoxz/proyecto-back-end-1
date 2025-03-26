@@ -1,0 +1,12 @@
+<h2>Lista de Productos</h2>
+<ul>
+    {{#each products}}
+        <li>
+            <a href="/products/{{this._id}}"><strong>{{this.name}}</strong></a>
+            <p>{{this.description}}</p>
+            <p>Precio: ${{this.price}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <button class="add-to-cart" data-pid="123">Agregar al carrito</button>
+        </li>
+    {{/each}}
+</ul>
